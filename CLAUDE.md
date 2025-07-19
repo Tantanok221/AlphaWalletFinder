@@ -7,6 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Run the application**: `deno task dev` (requires Infisical with dev environment for API tokens)
 - **Run tests**: `deno test`
 - **Direct execution**: `deno run --allow-all main.ts`
+- **Start Redis**: `docker compose up -d redis`
+- **Stop Redis**: `docker compose down`
 
 ## Architecture Overview
 

@@ -10,7 +10,8 @@
     "@/provider/": "./provider/",
     "@/service/": "./service/",
     "@/use_case/": "./use_case/",
-    "ky": "npm:ky@^1.8.2"
+    "ky": "npm:ky@^1.8.2",
+    "redis": "npm:redis@^5.6.0"
   },
   "nodeModulesDir": "auto"
 }

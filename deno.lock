@@ -6,7 +6,8 @@
     "npm:date-fns@^4.1.0": "4.1.0",
     "npm:helius-sdk@*": "1.5.1",
     "npm:helius-sdk@^1.5.1": "1.5.1",
-    "npm:ky@^1.8.2": "1.8.2"
+    "npm:ky@^1.8.2": "1.8.2",
+    "npm:redis@^5.6.0": "5.6.0_@redis+client@5.6.0"
   },
   "jsr": {
     "@std/assert@1.0.13": {
@@ -64,6 +65,36 @@
     },
     "@noble/hashes@1.8.0": {
       "integrity": "sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A=="
+    },
+    "@redis/bloom@5.6.0_@redis+client@5.6.0": {
+      "integrity": "sha512-l13/d6BaZDJzogzZJEphIeZ8J0hpQpjkMiozomTm6nJiMNYkoPsNOBOOQua4QsG0fFjyPmLMDJFPAp5FBQtTXg==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/client@5.6.0": {
+      "integrity": "sha512-wmP9kCFElCSr4MM4+1E4VckDuN4wLtiXSM/J0rKVQppajxQhowci89RGZr2OdLualowb8SRJ/R6OjsXrn9ZNFA==",
+      "dependencies": [
+        "cluster-key-slot"
+      ]
+    },
+    "@redis/json@5.6.0_@redis+client@5.6.0": {
+      "integrity": "sha512-YQN9ZqaSDpdLfJqwzcF4WeuJMGru/h4WsV7GeeNtXsSeyQjHTyDxrd48xXfRRJGv7HitA7zGnzdHplNeKOgrZA==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/search@5.6.0_@redis+client@5.6.0": {
+      "integrity": "sha512-sLgQl92EyMVNHtri5K8Q0j2xt9c0cO9HYurXz667Un4xeUYR+B/Dw5lLG35yqO7VvVxb9amHJo9sAWumkKZYwA==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/time-series@5.6.0_@redis+client@5.6.0": {
+      "integrity": "sha512-tXABmN1vu4aTNL3WI4Iolpvx/5jgil2Bs31ozvKblT+jkUoRkk8ykmYo9Pv/Mp7Gk6/Qkr/2rMgVminrt/4BBQ==",
+      "dependencies": [
+        "@redis/client"
+      ]
     },
     "@solana/buffer-layout-utils@0.2.0": {
       "integrity": "sha512-szG4sxgJGktbuZYDg2FfNmkMi0DYQoVjN2h7ta1W1hPrwzarcFLBq9UpX1UjNXsNpT9dn+chgprtWGioUAr4/g==",
@@ -404,6 +435,9 @@
     "chalk@5.4.1": {
       "integrity": "sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w=="
     },
+    "cluster-key-slot@1.1.2": {
+      "integrity": "sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA=="
+    },
     "combined-stream@1.0.8": {
       "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
       "dependencies": [
@@ -715,6 +749,16 @@
     "proxy-from-env@1.1.0": {
       "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
     },
+    "redis@5.6.0_@redis+client@5.6.0": {
+      "integrity": "sha512-0x3pM3SlYA5azdNwO8qgfMBzoOqSqr9M+sd1hojbcn0ZDM5zsmKeMM+zpTp6LIY+mbQomIc/RTTQKuBzr8QKzQ==",
+      "dependencies": [
+        "@redis/bloom",
+        "@redis/client",
+        "@redis/json",
+        "@redis/search",
+        "@redis/time-series"
+      ]
+    },
     "rpc-websockets@9.1.1_bufferutil@4.0.9_utf-8-validate@5.0.10": {
       "integrity": "sha512-1IXGM/TfPT6nfYMIXkJdzn+L4JEsmb0FL1O2OBjaH03V3yuUDdKFulGLMFG6ErV+8pZ5HVC0limve01RyO+saA==",
       "dependencies": [
@@ -844,7 +888,8 @@
       "jsr:@std/assert@1",
       "npm:date-fns@^4.1.0",
       "npm:helius-sdk@^1.5.1",
-      "npm:ky@^1.8.2"
+      "npm:ky@^1.8.2",
+      "npm:redis@^5.6.0"
     ]
   }
 }
