@@ -1,8 +1,8 @@
 import ky, { type KyInstance } from "ky";
 import { getEnv } from "@/helper/env.ts";
-import type { getSwapsByTokenAddressParams, GetSwapsByTokenAddressResponse } from "./types.ts";
+import type { TokenDataProvider, GetSwapsByTokenAddressParams, GetSwapsByTokenAddressResponse } from "@/provider/interface.ts";
 
-class MoralisProvider {
+class MoralisProvider implements TokenDataProvider {
   private tokenApi: KyInstance;
   
   constructor() {
@@ -16,15 +16,15 @@ class MoralisProvider {
     this.tokenApi = baseApi.extend((options) => ({prefixUrl: `${options.prefixUrl}/token/mainnet`}));
   }
 
-  private buildSearchParams(params: Record<string, any>, defaults: Record<string, any> = {}): Record<string, string | number> {
+  private buildSearchParams(params: Record<string, string| undefined>, defaults: Record<string, string|number> = {}): Record<string, string | number> {
     return Object.entries({ ...defaults, ...params })
       .filter(([_, value]) => value !== undefined && value !== null && value !== "")
       .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
   }
 
-  async getSwapsByTokenAddress({tokenAddress,toDate,transactionsTypes}:getSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse> {
+  async getSwapsByTokenAddress({tokenAddress,toDate,fromDate,transactionTypes}: GetSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse> {
     const searchParams = this.buildSearchParams(
-      { toDate, transactionTypes: transactionsTypes },
+      { fromDate, toDate, transactionTypes },
       { limit: 10 }
     );
     
@@ -34,6 +34,6 @@ class MoralisProvider {
   }
 }
 
-export function initMoralis(): MoralisProvider {
+export function initMoralisProvider(): TokenDataProvider {
   return new MoralisProvider();
 }

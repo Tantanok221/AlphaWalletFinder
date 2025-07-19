@@ -8,6 +8,8 @@
     "helius-sdk": "npm:helius-sdk@^1.5.1",
     "@/helper/": "./helper/",
     "@/provider/": "./provider/",
+    "@/service/": "./service/",
+    "@/use_case/": "./use_case/",
     "ky": "npm:ky@^1.8.2"
   },
   "nodeModulesDir": "auto"
