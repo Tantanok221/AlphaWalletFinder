@@ -16,7 +16,7 @@ class MoralisProvider implements TokenDataProvider {
     this.tokenApi = baseApi.extend((options) => ({prefixUrl: `${options.prefixUrl}/token/mainnet`}));
   }
 
-  private buildSearchParams(params: Record<string, string| undefined>, defaults: Record<string, string|number> = {}): Record<string, string | number> {
+  private buildSearchParams(params: Record<string, string| number |undefined>, defaults: Record<string, string|number> = {}): Record<string, string | number> {
     return Object.entries({ ...defaults, ...params })
       .filter(([_, value]) => value !== undefined && value !== null && value !== "")
       .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
