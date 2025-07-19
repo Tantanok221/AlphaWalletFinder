@@ -33,3 +33,10 @@ The application requires a `HELIUS_API_TOKEN` environment variable, managed thro
 ### Testing
 
 Uses Deno's built-in test framework with standard assertions. Test files follow the `*_test.ts` naming convention.
+
+### Naming Convention
+function: camelCase
+class: camelCase
+type: PascalCase
+folder: snake_case
+file name: camelCase
