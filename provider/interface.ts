@@ -10,6 +10,7 @@ export interface GetSwapsByTokenAddressParams {
   toDate?: string | number;
   fromDate?: string | number;
   transactionTypes?: "buy" | "sell";
+  [key: string]: unknown;
 }
 
 // Response interface for swap queries
