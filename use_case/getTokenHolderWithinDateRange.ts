@@ -18,7 +18,7 @@ export async function getTokenHolderWithinDateRange({
   endDate,
   tokenDataProvider
 }: GetTokenHolderDateRangeParams) {
-  const provider = tokenDataProvider ?? getDefaultTokenDataProvider()
+  const provider = tokenDataProvider ?? await getDefaultTokenDataProvider()
   // Validation getTokenHolderWithDateTime: at least one date must be provided
   if (!startDate && !endDate) {
     throw new Error('At least one of startDate or endDate must be provided')
