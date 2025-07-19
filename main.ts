@@ -1,9 +1,11 @@
-import { Helius } from "npm:helius-sdk";
+import {initMoralis} from "./provider/index.ts";
 
-const helius = new Helius(Deno.env.get("HELIUS_API_TOKEN"));
-const response = await helius.rpc.getAssetsByOwner({
-  ownerAddress: "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
-  page: 1,
-});
+const moralisProvider = initMoralis()
 
-console.log(response.items);
+const data = await moralisProvider.getSwapsByTokenAddress({
+  tokenAddress: "4ZVCJdxrbWLWKFFAZqqphyNBUhPE7YpnHWXvFuKkbonk",
+  toDate: "2025-07-19T07:00:00.000Z" ,
+  transactionsTypes: "buy",
+}
+)
+console.log(data)

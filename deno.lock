@@ -3,8 +3,10 @@
   "specifiers": {
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/internal@^1.0.6": "1.0.9",
+    "npm:date-fns@^4.1.0": "4.1.0",
     "npm:helius-sdk@*": "1.5.1",
-    "npm:helius-sdk@^1.5.1": "1.5.1"
+    "npm:helius-sdk@^1.5.1": "1.5.1",
+    "npm:ky@^1.8.2": "1.8.2"
   },
   "jsr": {
     "@std/assert@1.0.13": {
@@ -417,6 +419,9 @@
     "commander@2.20.3": {
       "integrity": "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
     },
+    "date-fns@4.1.0": {
+      "integrity": "sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg=="
+    },
     "debug@4.4.1": {
       "integrity": "sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==",
       "dependencies": [
@@ -655,6 +660,9 @@
     "json-stringify-safe@5.0.1": {
       "integrity": "sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA=="
     },
+    "ky@1.8.2": {
+      "integrity": "sha512-XybQJ3d4Ea1kI27DoelE5ZCT3bSJlibYTtQuMsyzKox3TMyayw1asgQdl54WroAm+fIA3ZCr8zXW2RpR7qWVpA=="
+    },
     "math-intrinsics@1.1.0": {
       "integrity": "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="
     },
@@ -834,7 +842,9 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1",
-      "npm:helius-sdk@^1.5.1"
+      "npm:date-fns@^4.1.0",
+      "npm:helius-sdk@^1.5.1",
+      "npm:ky@^1.8.2"
     ]
   }
 }
