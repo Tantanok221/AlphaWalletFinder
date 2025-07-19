@@ -1,19 +1,13 @@
-import ky, { type KyInstance } from "ky";
 import { getEnv } from "@/helper/env.ts";
 import type { TokenDataProvider, GetSwapsByTokenAddressParams, GetSwapsByTokenAddressResponse } from "@/provider/interface.ts";
+import { createMoralisApiClient, validateTokenAddress, validateMoralisResponse, handleMoralisError, type MoralisApiClients } from "./helper.ts";
 
 class MoralisProvider implements TokenDataProvider {
-  private tokenApi: KyInstance;
+  private apiClients: MoralisApiClients;
   
   constructor() {
-    const baseApi = ky.create({
-      prefixUrl: "https://solana-gateway.moralis.io",
-      headers: {
-        "Authorization": `Bearer ${getEnv("MORALIS_API_TOKEN")}`,
-        "accept": "application/json"
-      }
-    });
-    this.tokenApi = baseApi.extend((options) => ({prefixUrl: `${options.prefixUrl}/token/mainnet`}));
+    const apiToken = getEnv("MORALIS_API_TOKEN");
+    this.apiClients = createMoralisApiClient(apiToken);
   }
 
   private buildSearchParams(params: Record<string, string| number |undefined>, defaults: Record<string, string|number> = {}): Record<string, string | number> {
@@ -22,15 +16,26 @@ class MoralisProvider implements TokenDataProvider {
       .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
   }
 
-  async getSwapsByTokenAddress({tokenAddress,toDate,fromDate,transactionTypes}: GetSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse> {
-    const searchParams = this.buildSearchParams(
-      { fromDate, toDate, transactionTypes },
-      { limit: 10 }
-    );
-    
-    return await this.tokenApi.get(`${tokenAddress}/swaps`, {
-      searchParams
-    }).json<GetSwapsByTokenAddressResponse>()
+  async getSwapsByTokenAddress({tokenAddress, toDate, fromDate, transactionTypes}: GetSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse> {
+    try {
+      validateTokenAddress(tokenAddress);
+
+      const searchParams = this.buildSearchParams(
+        { fromDate, toDate, transactionTypes },
+        { limit: 10 }
+      );
+      
+      console.log(`Fetching swaps for token: ${tokenAddress}`);
+      
+      const response = await this.apiClients.token.get(`${tokenAddress}/swaps`, {
+        searchParams
+      }).json();
+
+      return validateMoralisResponse(response, tokenAddress);
+
+    } catch (error) {
+      throw handleMoralisError(error, `fetching swaps for token: ${tokenAddress}`);
+    }
   }
 }
 
