@@ -4,7 +4,7 @@ import type {
   GetSwapsByTokenAddressParams, 
   GetSwapsByTokenAddressResponse 
 } from "@/provider/interface.ts";
-import { generateCacheKey } from "@/helper/cacheKeyGenerator.ts";
+import { generateCacheKey } from "./helper.ts";
 
 interface CacheOptions<TParams, TResponse> {
   methodName: string;

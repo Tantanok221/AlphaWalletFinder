@@ -6,6 +6,10 @@ export interface MoralisApiClients {
 }
 
 export function createMoralisApiClient(apiToken: string): MoralisApiClients {
+  if (apiToken.length === 0) {
+    throw new Error('Invalid API token: must be a non-empty string');
+  }
+  
   try {
     const baseApi = ky.create({
       prefixUrl: "https://solana-gateway.moralis.io",

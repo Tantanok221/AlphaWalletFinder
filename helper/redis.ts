@@ -1,8 +1,8 @@
-import { createClient, type RedisClientType } from 'npm:redis';
+import { createClient} from 'npm:redis';
 
-let redisClient: any = null;
+let redisClient: ReturnType<typeof createClient> | null = null;
 
-export async function initRedis(): Promise<RedisClientType> {
+export async function initRedis(): Promise<ReturnType<typeof createClient>> {
   if (redisClient && redisClient.isOpen) {
     return redisClient;
   }
@@ -31,7 +31,7 @@ export async function initRedis(): Promise<RedisClientType> {
   }
 }
 
-export async function getRedisClient(): Promise<RedisClientType> {
+export async function getRedisClient(): Promise<ReturnType<typeof createClient>> {
   if (!redisClient || !redisClient.isOpen) {
     return await initRedis();
   }
