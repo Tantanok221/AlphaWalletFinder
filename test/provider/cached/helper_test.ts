@@ -7,47 +7,59 @@ Deno.test("generateCacheKey - simple params", () => {
 });
 
 Deno.test("generateCacheKey - with date params", () => {
-  const result = generateCacheKey("getSwaps", { 
-    address: "abc123", 
+  const result = generateCacheKey("getSwaps", {
+    address: "abc123",
     fromDate: "2024-01-01",
-    toDate: "2024-01-31"
+    toDate: "2024-01-31",
   });
-  assertEquals(result, "getSwaps:address=abc123&fromDate=2024-01-01&toDate=2024-01-31");
+  assertEquals(
+    result,
+    "getSwaps:address=abc123&fromDate=2024-01-01&toDate=2024-01-31",
+  );
 });
 
 Deno.test("generateCacheKey - nested object params", () => {
-  const result = generateCacheKey("getSwaps", { 
+  const result = generateCacheKey("getSwaps", {
     address: "abc123",
-    options: { limit: 100, offset: 0 }
+    options: { limit: 100, offset: 0 },
   });
-  assertEquals(result, "getSwaps:address=abc123&options.limit=100&options.offset=0");
+  assertEquals(
+    result,
+    "getSwaps:address=abc123&options.limit=100&options.offset=0",
+  );
 });
 
 Deno.test("generateCacheKey - array params", () => {
-  const result = generateCacheKey("getMultipleSwaps", { 
+  const result = generateCacheKey("getMultipleSwaps", {
     addresses: ["addr1", "addr2", "addr3"],
-    limit: 50
+    limit: 50,
   });
-  assertEquals(result, "getMultipleSwaps:addresses=addr1%2Caddr2%2Caddr3&limit=50");
+  assertEquals(
+    result,
+    "getMultipleSwaps:addresses=addr1%2Caddr2%2Caddr3&limit=50",
+  );
 });
 
 Deno.test("generateCacheKey - filters out null/undefined/empty values", () => {
-  const result = generateCacheKey("getSwaps", { 
+  const result = generateCacheKey("getSwaps", {
     address: "abc123",
     limit: 10,
     nullValue: null,
     undefinedValue: undefined,
-    emptyString: ""
+    emptyString: "",
   });
   assertEquals(result, "getSwaps:address=abc123&limit=10");
 });
 
 Deno.test("generateCacheKey - encodes special characters", () => {
-  const result = generateCacheKey("getSwaps", { 
+  const result = generateCacheKey("getSwaps", {
     address: "abc@123#special",
-    query: "token&address"
+    query: "token&address",
   });
-  assertEquals(result, "getSwaps:address=abc%40123%23special&query=token%26address");
+  assertEquals(
+    result,
+    "getSwaps:address=abc%40123%23special&query=token%26address",
+  );
 });
 
 Deno.test("generateCacheKey - sorts keys consistently", () => {
@@ -58,15 +70,18 @@ Deno.test("generateCacheKey - sorts keys consistently", () => {
 });
 
 Deno.test("generateCacheKey - handles complex nested structure", () => {
-  const result = generateCacheKey("getSwaps", { 
+  const result = generateCacheKey("getSwaps", {
     address: "abc123",
     filters: {
       dateRange: { from: "2024-01-01", to: "2024-01-31" },
       tokens: ["SOL", "USDC"],
-      minAmount: 100
-    }
+      minAmount: 100,
+    },
   });
-  assertEquals(result, "getSwaps:address=abc123&filters.dateRange.from=2024-01-01&filters.dateRange.to=2024-01-31&filters.minAmount=100&filters.tokens=SOL%2CUSDC");
+  assertEquals(
+    result,
+    "getSwaps:address=abc123&filters.dateRange.from=2024-01-01&filters.dateRange.to=2024-01-31&filters.minAmount=100&filters.tokens=SOL%2CUSDC",
+  );
 });
 
 Deno.test("generateCacheKey - empty params object", () => {

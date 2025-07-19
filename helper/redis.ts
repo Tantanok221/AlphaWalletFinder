@@ -1,4 +1,4 @@
-import { createClient} from 'npm:redis';
+import { createClient } from "npm:redis";
 
 let redisClient: ReturnType<typeof createClient> | null = null;
 
@@ -8,17 +8,17 @@ export async function initRedis(): Promise<ReturnType<typeof createClient>> {
   }
 
   const client = createClient();
-  
-  client.on('error', (err) => {
-    console.error('Redis Client Error:', err);
+
+  client.on("error", (err) => {
+    console.error("Redis Client Error:", err);
   });
 
-  client.on('connect', () => {
-    console.log('Connected to Redis');
+  client.on("connect", () => {
+    console.log("Connected to Redis");
   });
 
-  client.on('disconnect', () => {
-    console.log('Disconnected from Redis');
+  client.on("disconnect", () => {
+    console.log("Disconnected from Redis");
   });
 
   try {
@@ -26,12 +26,14 @@ export async function initRedis(): Promise<ReturnType<typeof createClient>> {
     redisClient = client;
     return client;
   } catch (error) {
-    console.error('Failed to connect to Redis:', error);
+    console.error("Failed to connect to Redis:", error);
     throw error;
   }
 }
 
-export async function getRedisClient(): Promise<ReturnType<typeof createClient>> {
+export async function getRedisClient(): Promise<
+  ReturnType<typeof createClient>
+> {
   if (!redisClient || !redisClient.isOpen) {
     return await initRedis();
   }

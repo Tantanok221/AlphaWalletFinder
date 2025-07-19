@@ -1,14 +1,14 @@
 import { assertEquals, assertThrows } from "@std/assert";
-import { 
+import {
   createMoralisApiClient,
-  validateTokenAddress,
   validateMoralisResponse,
+  validateTokenAddress,
 } from "@/provider/moralis/helper.ts";
 
 Deno.test("createMoralisApiClient - creates valid client structure", () => {
   const apiToken = "test-token";
   const clients = createMoralisApiClient(apiToken);
-  
+
   assertEquals(typeof clients, "object");
   assertEquals(typeof clients.token, "function");
   assertEquals("token" in clients, true);
@@ -18,7 +18,7 @@ Deno.test("createMoralisApiClient - throws on empty token", () => {
   assertThrows(
     () => createMoralisApiClient(""),
     Error,
-    "Invalid API token: must be a non-empty string"
+    "Invalid API token: must be a non-empty string",
   );
 });
 
@@ -31,7 +31,7 @@ Deno.test("validateTokenAddress - rejects empty string", () => {
   assertThrows(
     () => validateTokenAddress(""),
     Error,
-    "Invalid token address: must be a non-empty string"
+    "Invalid token address: must be a non-empty string",
   );
 });
 
@@ -39,7 +39,7 @@ Deno.test("validateTokenAddress - rejects whitespace-only string", () => {
   assertThrows(
     () => validateTokenAddress("   "),
     Error,
-    "Invalid token address: must be a non-empty string"
+    "Invalid token address: must be a non-empty string",
   );
 });
 
@@ -47,13 +47,13 @@ Deno.test("validateTokenAddress - rejects null/undefined", () => {
   assertThrows(
     () => validateTokenAddress(null as any),
     Error,
-    "Invalid token address: must be a non-empty string"
+    "Invalid token address: must be a non-empty string",
   );
-  
+
   assertThrows(
     () => validateTokenAddress(undefined as any),
     Error,
-    "Invalid token address: must be a non-empty string"
+    "Invalid token address: must be a non-empty string",
   );
 });
 
@@ -64,10 +64,10 @@ Deno.test("validateMoralisResponse - handles valid response with data", () => {
     pageSize: 100,
     result: [
       { id: "swap1", amount: "1000" },
-      { id: "swap2", amount: "2000" }
-    ]
+      { id: "swap2", amount: "2000" },
+    ],
   };
-  
+
   const result = validateMoralisResponse(mockResponse, "test-token");
   assertEquals(result.cursor, "next-page-cursor");
   assertEquals(result.page, 1);
@@ -80,9 +80,9 @@ Deno.test("validateMoralisResponse - handles empty result array", () => {
     cursor: "",
     page: 1,
     pageSize: 0,
-    result: []
+    result: [],
   };
-  
+
   const result = validateMoralisResponse(mockResponse, "test-token");
   assertEquals(result.result.length, 0);
   assertEquals(result.cursor, "");
@@ -92,9 +92,9 @@ Deno.test("validateMoralisResponse - handles response with missing result", () =
   const mockResponse = {
     cursor: "some-cursor",
     page: 1,
-    pageSize: 0
+    pageSize: 0,
   };
-  
+
   const result = validateMoralisResponse(mockResponse, "test-token");
   assertEquals(result.result.length, 0);
   assertEquals(result.cursor, "some-cursor");
@@ -104,12 +104,12 @@ Deno.test("validateMoralisResponse - throws on invalid response", () => {
   assertThrows(
     () => validateMoralisResponse(null, "test-token"),
     Error,
-    "Invalid response format from Moralis API"
+    "Invalid response format from Moralis API",
   );
-  
+
   assertThrows(
     () => validateMoralisResponse("invalid", "test-token"),
     Error,
-    "Invalid response format from Moralis API"
+    "Invalid response format from Moralis API",
   );
 });

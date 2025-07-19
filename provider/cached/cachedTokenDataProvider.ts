@@ -1,8 +1,8 @@
 import type { RedisClientType } from "npm:redis";
-import type { 
-  TokenDataProvider, 
-  GetSwapsByTokenAddressParams, 
-  GetSwapsByTokenAddressResponse 
+import type {
+  GetSwapsByTokenAddressParams,
+  GetSwapsByTokenAddressResponse,
+  TokenDataProvider,
 } from "@/provider/interface.ts";
 import { generateCacheKey } from "./helper.ts";
 
@@ -17,23 +17,28 @@ export class CachedTokenDataProvider implements TokenDataProvider {
   constructor(
     private readonly underlyingProvider: TokenDataProvider,
     private readonly redisClient: RedisClientType,
-    private readonly defaultTtlSeconds: number = 300
+    private readonly defaultTtlSeconds: number = 300,
   ) {}
 
-  async getSwapsByTokenAddress(params: GetSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse> {
+  async getSwapsByTokenAddress(
+    params: GetSwapsByTokenAddressParams,
+  ): Promise<GetSwapsByTokenAddressResponse> {
     return this.executeWithCache({
-      methodName: 'getSwapsByTokenAddress',
+      methodName: "getSwapsByTokenAddress",
       params,
       operation: () => this.underlyingProvider.getSwapsByTokenAddress(params),
-      cachePermanently: true
+      cachePermanently: true,
     });
   }
 
   private async executeWithCache<TParams, TResponse>(
-    options: CacheOptions<TParams, TResponse>
+    options: CacheOptions<TParams, TResponse>,
   ): Promise<TResponse> {
     const { methodName, params, operation, cachePermanently = false } = options;
-    const cacheKey = generateCacheKey(methodName, params as Record<string, unknown>);
+    const cacheKey = generateCacheKey(
+      methodName,
+      params as Record<string, unknown>,
+    );
 
     try {
       const cachedResult = await this.redisClient.get(cacheKey);
@@ -50,7 +55,7 @@ export class CachedTokenDataProvider implements TokenDataProvider {
     try {
       const ttl = cachePermanently ? undefined : this.defaultTtlSeconds;
       const serializedResult = JSON.stringify(result);
-      
+
       if (ttl !== undefined) {
         await this.redisClient.setEx(cacheKey, ttl, serializedResult);
         console.log(`Cached ${methodName} with TTL ${ttl}s`);

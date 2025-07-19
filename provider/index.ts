@@ -5,9 +5,11 @@ import { getRedisClient } from "../helper/redis.ts";
 import type { TokenDataProvider } from "./interface.ts";
 export type * from "./interface.ts";
 
-export async function getDefaultTokenDataProvider(): Promise<TokenDataProvider> {
+export async function getDefaultTokenDataProvider(): Promise<
+  TokenDataProvider
+> {
   const baseProvider = getBaseProvider();
-  
+
   if (!CONFIG.cache.enabled) {
     return baseProvider;
   }
@@ -17,10 +19,13 @@ export async function getDefaultTokenDataProvider(): Promise<TokenDataProvider> 
     return new CachedTokenDataProvider(
       baseProvider,
       redisClient,
-      CONFIG.cache.defaultTtlSeconds
+      CONFIG.cache.defaultTtlSeconds,
     );
   } catch (error) {
-    console.warn("Failed to initialize Redis cache, falling back to base provider:", error);
+    console.warn(
+      "Failed to initialize Redis cache, falling back to base provider:",
+      error,
+    );
     return baseProvider;
   }
 }

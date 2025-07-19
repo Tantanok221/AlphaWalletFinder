@@ -1,4 +1,4 @@
-import {getTokenHolderWithinDateRange} from "./use_case/getTokenHolderWithinDateRange.ts";
+import { getTokenHolderWithinDateRange } from "./use_case/getTokenHolderWithinDateRange.ts";
 import { closeRedis } from "./helper/redis.ts";
 
 try {

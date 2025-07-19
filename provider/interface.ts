@@ -1,7 +1,9 @@
 // Base provider interface for dependency injection
 export interface TokenDataProvider {
   // Get token swaps/transactions by address with optional date filtering
-  getSwapsByTokenAddress(params: GetSwapsByTokenAddressParams): Promise<GetSwapsByTokenAddressResponse>;
+  getSwapsByTokenAddress(
+    params: GetSwapsByTokenAddressParams,
+  ): Promise<GetSwapsByTokenAddressResponse>;
 }
 
 // Parameters for getting swaps by token address

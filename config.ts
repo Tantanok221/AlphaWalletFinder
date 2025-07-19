@@ -11,5 +11,5 @@ export const CONFIG: AppConfig = {
   cache: {
     enabled: false,
     defaultTtlSeconds: 300,
-  }
+  },
 };
