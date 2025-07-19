@@ -41,3 +41,7 @@ class: camelCase
 type: PascalCase
 folder: snake_case
 file name: camelCase
+
+## Development Reminders
+
+- Remember to run tests and try them out when writing new code/tests, everytime run test, run every test instead of a specific file
