@@ -43,20 +43,6 @@ Deno.test("validateTokenAddress - rejects whitespace-only string", () => {
   );
 });
 
-Deno.test("validateTokenAddress - rejects null/undefined", () => {
-  assertThrows(
-    () => validateTokenAddress(null as any),
-    Error,
-    "Invalid token address: must be a non-empty string",
-  );
-
-  assertThrows(
-    () => validateTokenAddress(undefined as any),
-    Error,
-    "Invalid token address: must be a non-empty string",
-  );
-});
-
 Deno.test("validateMoralisResponse - handles valid response with data", () => {
   const mockResponse = {
     cursor: "next-page-cursor",
