@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "infisical run --env=dev -- deno run --allow-all main.ts",
+    "dev": "infisical run --env=dev -- deno run --allow-all src/main.ts",
     "test": "infisical run --env=dev -- deno test --allow-all"
     "format": "deno fmt"
   },
@@ -8,10 +8,10 @@
     "@std/assert": "jsr:@std/assert@1",
     "date-fns": "npm:date-fns@^4.1.0",
     "helius-sdk": "npm:helius-sdk@^1.5.1",
-    "@/helper/": "./helper/",
-    "@/provider/": "./provider/",
-    "@/service/": "./service/",
-    "@/use_case/": "./use_case/",
+    "@/helper/": "./src/helper/",
+    "@/provider/": "./src/provider/",
+    "@/service/": "./src/service/",
+    "@/use_case/": "./src/use_case/",
     "ky": "npm:ky@^1.8.2",
     "redis": "npm:redis@^5.6.0"
   },
